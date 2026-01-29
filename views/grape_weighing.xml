@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <!-- Campos principales -->
                         <group>
                             <field name="name"/>
                             <field name="datetime"/>
@@ -16,23 +17,15 @@
                             <field name="net_weight" readonly="1"/>
                         </group>
 
-                        <notebook>
-                            <page string="Pesadas por Parcela">
-                                <field name="line_ids">
-                                    <tree>
-                                        <field name="name"/>
-                                        <field name="datetime"/>
-                                        <field name="winegrower_id"/>
-                                        <field name="grape_variety_id"/>
-                                        <field name="plot_id"/>
-                                        <field name="gross_weight"/>
-                                        <field name="tare_weight"/>
-                                        <field name="net_weight"/>
-                                        <field name="alcohol_degree"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
+                        <!-- Título de sección -->
+                        <div class="o_form_label" style="margin-top:10px; font-weight:bold; font-size:14px;">
+                            Pesadas por Parcela
+                        </div>
+
+                        <!-- Líneas de pesada usando directamente la vista form de GrapeWeighingLine -->
+                        <field name="line_ids" 
+                               context="{}"
+                               views="[(ref('winery_grape_weighing_line_form'), 'form'), (False, 'tree')]"/>
                     </sheet>
                 </form>
             </field>
