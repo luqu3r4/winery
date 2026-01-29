@@ -36,9 +36,6 @@
                                 <field name="winegrower_code" readonly="1"/>
                                 <field name="grape_variety_id"/>
                                 <field name="plot_id"/>
-                            </group>
-
-                            <group>
                                 <field name="table_wine"/>
                                 <field name="alcohol_degree"/>
                                 <field name="gross_weight"/>
