@@ -1,8 +1,8 @@
 <odoo>
   <data>
     <record id="winery_grape_weighing_form" model="ir.ui.view">
-      <field name="name">winery.grape.weighing.form</field>
-      <field name="model">winery.grape.weighing</field>
+      <field name="name">winery.grape_weighing.form</field>
+      <field name="model">winery.grape_weighing</field>
       <field name="arch" type="xml">
         <form>
           <sheet>
@@ -33,8 +33,8 @@
 
     <!-- Vista Tree -->
     <record id="winery_grape_weighing_tree" model="ir.ui.view">
-      <field name="name">winery.grape.weighing.tree</field>
-      <field name="model">winery.grape.weighing</field>
+      <field name="name">winery.grape_weighing.tree</field>
+      <field name="model">winery.grape_weighing</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
@@ -50,7 +50,7 @@
     <!-- Acción -->
     <record id="winery_grape_weighing_action" model="ir.actions.act_window">
       <field name="name">Pesadas de Uva</field>
-      <field name="res_model">winery.grape.weighing</field>
+      <field name="res_model">winery.grape_weighing</field>
       <field name="view_mode">tree,form</field>
     </record>
   </data>
