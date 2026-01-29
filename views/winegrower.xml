@@ -46,6 +46,10 @@
                         </group>
                     </group>
                     <notebook>
+                        <page string="Parcelas" name="plot">
+                            <field name="plot_id">
+                            </field>
+                        </page>
                         <page string="Notas">
                             <field name="notes" placeholder="Observaciones adicionales..."/>
                         </page>
