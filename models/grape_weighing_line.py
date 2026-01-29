@@ -6,12 +6,12 @@ class GrapeWeighingLine(models.Model):
     _description = 'Líneas de Pesada de Uva'
 
     name = fields.Char(string="Referencia", required=True)
-    datetime = fields.Datetime(string="Fecha y Hora", required=True)
-    
+    datetime = fields.Datetime(string="Fecha", required=True)
+
     winegrower_id = fields.Many2one('winery.winegrower', string="Viticultor", required=True)
     winegrower_code = fields.Char(string="Nº Viticultor", compute='_compute_winegrower_code', store=True, readonly=True)
 
-    # Campo Many2one normal para seleccionar una parcela
+    # Parcela filtrada por viticultor
     plot_id = fields.Many2one('winery.plot', string="Parcela")
 
     table_wine = fields.Boolean(string="¿Vino de mesa?")
@@ -24,22 +24,25 @@ class GrapeWeighingLine(models.Model):
 
     notes = fields.Text(string="Descripción")
 
-    weighing_id = fields.Many2one('winery.grape.weighing', string="Pesada")  # Relación con la cabecera
+    # Relación con la cabecera (obligatoria para One2many)
+    weighing_id = fields.Many2one('winery.grape.weighing', string="Pesada", required=True)
 
     @api.depends('winegrower_id')
     def _compute_winegrower_code(self):
-        for record in self:
-            record.winegrower_code = record.winegrower_id.code if record.winegrower_id else ''
+        for rec in self:
+            rec.winegrower_code = rec.winegrower_id.code if rec.winegrower_id else ''
 
     @api.depends('gross_weight', 'tare_weight')
     def _compute_net_weight(self):
-        for record in self:
-            record.net_weight = (record.gross_weight or 0.0) - (record.tare_weight or 0.0)
+        for rec in self:
+            rec.net_weight = (rec.gross_weight or 0.0) - (rec.tare_weight or 0.0)
 
     @api.onchange('winegrower_id')
     def _onchange_winegrower_id(self):
-        # Filtra parcelas solo del viticultor seleccionado
-        if self.winegrower_id:
-            return {'domain': {'plot_id': [('winegrower_id', '=', self.winegrower_id.id)]}}
-        # Si no hay viticultor, no mostrar ninguna parcela
-        return {'domain': {'plot_id': [('id', '=', False)]}}
+        for rec in self:
+            if rec.winegrower_id:
+                rec.plot_id = False
+                rec.domain_plot = [('winegrower_id','=',rec.winegrower_id.id)]
+            else:
+                rec.plot_id = False
+                rec.domain_plot = [('id','=',False)]
