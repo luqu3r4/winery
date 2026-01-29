@@ -1,8 +1,8 @@
 <odoo>
   <data>
     <record id="winery_grape_weighing_line_form" model="ir.ui.view">
-      <field name="name">winery.grape_weighing.line.form</field>
-      <field name="model">winery.grape_weighing.line</field>
+      <field name="name">winery.grape.weighing.line.form</field>
+      <field name="model">winery.grape.weighing.line</field>
       <field name="arch" type="xml">
         <form>
           <sheet>
