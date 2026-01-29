@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <!-- Menú raíz -->
+        <menuitem id="menu_winery_root"
+                  name="Winery"
+                  sequence="20"/>
+
+        <!-- Opción Viticultores -->
+        <menuitem id="menu_winery_winegrower"
+                  name="Viticultores"
+                  parent="menu_winery_root"
+                  action="action_winery_winegrower"
+                  sequence="1"/>
+
+        <!-- Submenús dentro de Operaciones -->
+        <menuitem id="menu_winery_plots"
+                  name="Parcelas"
+                  parent="menu_winery_root"
+                  sequence="1"
+                  action="plot_action_window"/>
+
+        <menuitem id="menu_winery_grape_weighing"
+                  name="Pesadas de Uva"
+                  parent="menu_winery_root"
+                  sequence="2"
+                  action="winery_grape_weighing_action"/>
+
+        <!-- Tipos de Uva -->
+        <menuitem id="menu_winery_grape_variety"
+                  name="Tipos de Uva"
+                  parent="menu_winery_root"
+                  action="winery_grape_variety_action"
+                  sequence="3"/>
+    </data>
+</odoo>

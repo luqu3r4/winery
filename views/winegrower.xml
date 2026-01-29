@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_winery_winegrower_tree" model="ir.ui.view">
+        <field name="name">winery.winegrower.tree</field>
+        <field name="model">winery.winegrower</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="nif"/>
+                <field name="city"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_winery_winegrower_form" model="ir.ui.view">
+        <field name="name">winery.winegrower.form</field>
+        <field name="model">winery.winegrower</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre del Viticultor o Razón Social"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Datos Generales">
+                            <field name="code"/>
+                            <field name="nif"/>
+                        </group>
+                        <group string="Contacto">
+                            <field name="phone"/>
+                            <field name="email" widget="email"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Dirección">
+                            <field name="street"/>
+                            <field name="city"/>
+                            <field name="zip"/>
+                            <field name="country_id" options="{'no_open': True, 'no_create': True}"/>
+                            <field name="state_id" domain="[('country_id', '=', country_id)]" options="{'no_open': True, 'no_create': True}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notas">
+                            <field name="notes" placeholder="Observaciones adicionales..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_winery_winegrower" model="ir.actions.act_window">
+        <field name="name">Viticultores</field>
+        <field name="res_model">winery.winegrower</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea el primer viticultor
+            </p>
+            <p>
+                Aquí podrás gestionar todos los proveedores de uva de la bodega.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_winery_root" 
+              name="Bodega" 
+              sequence="10"/>
+
+    <menuitem id="menu_winery_management" 
+              name="Gestión" 
+              parent="menu_winery_root" 
+              sequence="1"/>
+
+    <menuitem id="menu_winery_winegrower" 
+              name="Viticultores" 
+              parent="menu_winery_management" 
+              action="action_winery_winegrower" 
+              sequence="10"/>
+</odoo>
