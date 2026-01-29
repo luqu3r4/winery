@@ -39,10 +39,18 @@ class GrapeWeighingLine(models.Model):
 
     @api.onchange('winegrower_id')
     def _onchange_winegrower_id(self):
-        for rec in self:
-            if rec.winegrower_id:
-                rec.plot_id = False
-                rec.domain_plot = [('winegrower_id','=',rec.winegrower_id.id)]
-            else:
-                rec.plot_id = False
-                rec.domain_plot = [('id','=',False)]
+        if self.winegrower_id:
+            self.plot_id = False
+            return {
+                'domain': {
+                    'plot_id': [('winegrower_id', '=', self.winegrower_id.id)]
+                }
+            }
+        else:
+            self.plot_id = False
+            return {
+                'domain': {
+                    'plot_id': [('id', '=', False)]
+                }
+            }
+

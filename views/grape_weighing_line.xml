@@ -14,7 +14,7 @@
             </group>
 
             <group>
-              <field name="plot_id" domain="domain_plot"/>
+              <field name="plot_id"/>
             </group>
 
             <group>
