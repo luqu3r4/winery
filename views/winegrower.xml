@@ -30,6 +30,7 @@
                         <group string="Datos Generales">
                             <field name="code"/>
                             <field name="nif"/>
+                            <field name="typeOf"/>
                         </group>
                         <group string="Contacto">
                             <field name="phone"/>

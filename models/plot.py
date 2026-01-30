@@ -1,42 +1,45 @@
 # -*- coding: utf-8 -*-
+
 from odoo import models, fields, api
 
-class Plot(models.Model): # Por convención, las clases empiezan en mayúscula
+class plot(models.Model):
     _name = 'winery.plot'
     _description = 'Parcelas de la bodega'
 
-    # 1. Identificación: El nombre debe ser calculado y no editable manualmente
-    name = fields.Char(string='Nombre', store=True)
+    # Campos básicos
+    name = fields.Char(string='Nombre', required=True)
     plot_number = fields.Char(string='Número de Parcela')
     cadastral_ref = fields.Char(string='Referencia Catastral')
     
-    # 2. Localización
-    city = fields.Char(string='Localidad')
+    # Ubicación Geográfica
+    city = fields.Char(string='Ciudad/Municipio')
     gps_coords = fields.Char(string='Coordenadas GPS')
+    
+    # Relaciones (Foreign Keys)
     country_id = fields.Many2one('res.country', string='País', default=68)
-    state_id = fields.Many2one('res.country.state', string='Provincia', default=427)
+    state_id = fields.Many2one('res.country.state', string='Provincia/Estado', default=427)
     
-    # 3. Datos Agrícolas (Superficie en hectáreas)
-    # Usamos area_ha para el cálculo del Viticultor
-    area_ha = fields.Float(string='Superficie (Ha)', digits=(10, 2))
+    # Datos Agrícolas
+    area_ha = fields.Float(string='Área (Ha)', digits=(10, 2))
     
-    # 4. Relaciones
-    # grape_variety_id debe ser Many2one o Many2many según el negocio. La práctica dice "variedad o variedades".
-    grape_variety_id = fields.Many2one('winery.grape_variety', string='Variedad de Uva')
-    winegrower_id = fields.Many2one('winery.winegrower', string='Viticultor', required=True)
+    # Relaciones específicas del negocio (Ajusta los modelos 'comodel_name' según tu código real)
+    grape_variety_id = fields.Many2one('winery.grape.variety', string='Variedad de Uva')
+    winegrower_id = fields.Many2one('winery.winegrower', string='Viticultor')
     
-    aggregation = fields.Char(string='Agregado', required=True)
+    # Otros detalles
+    aggregation = fields.Char(string='Agregación', required=True)
     zone = fields.Char(string='Zona')
+    
+    # Campos de texto largo
     sigpac_info = fields.Text(string='Información SIGPAC')
-    description = fields.Text(string='Descripción libre')
+    description = fields.Text(string='Descripción')
 
-    # 5. Estado de la parcela
+    # Estado
     state = fields.Selection([
-        ('active', 'Activa'),
-        ('inactive', 'Inactiva'),
-        ('suspended', 'Suspendida')
-    ], string='Estado', default='active')
-
+        ('draft', 'Borrador'),
+        ('active', 'Activo'),
+        ('archived', 'Archivado')
+    ], string='Estado', default='draft')
     @api.onchange('country_id')
     def _onchange_country_id(self):
         if self.state_id and self.state_id.country_id != self.country_id:
@@ -45,18 +48,16 @@ class Plot(models.Model): # Por convención, las clases empiezan en mayúscula
             'domain': {
                 'state_id': [('country_id', '=', self.country_id.id)]
             }
-        }
+        } 
     
-    @api.depends('plot_number', 'state_id', 'aggregation', 'grape_variety_id')
+    @api.depends('plot_number', 'state_id','aggregation','grape_variety_id')
     def _compute_name(self):
         for rec in self:
-            # Obtenemos el nombre de la variedad si existe
-            variety_name = rec.grape_variety_id.name if rec.grape_variety_id else None
             parts = [
                 f"Nº {rec.plot_number}" if rec.plot_number else None,
                 rec.state_id.name if rec.state_id else None,
                 rec.aggregation,
-                variety_name,
+                rec.grape_variety_id,
             ]
             rec.name = ' - '.join(filter(None, parts))
 

@@ -19,7 +19,7 @@ class Winegrower(models.Model):
     email = fields.Char(string = "Correo")
     notes = fields.Text(string = "Notas")
     plot_id = fields.One2many('winery.plot', 'winegrower_id', string="Parcelas")
-    typeOf = fields.Selection(selection=[('Pequeño', 'Pequeño'), ('Mediano', 'Mediano'), ('Grande', 'Grande')], string = "Tamaño del viticultor.")
+    typeOf = fields.Selection(selection=[('Pequeño', 'Pequeño'), ('Mediano', 'Mediano'), ('Grande', 'Grande')], compute="_compute_typeOf", store = True, string = "Tamaño del viticultor.")
 
     @api.onchange('country_id')
     def _onchange_country_id(self):
@@ -32,14 +32,13 @@ class Winegrower(models.Model):
         }
    
     @api.depends('plot_id.area_ha')
-    def _depends_typeOf(self):
-        sumaTotal = 0
-        for parcela in self:
-            sumaTotal += parcela.plot_id.area_ha
- 
-        if (sumaTotal < 5):
-            self.typeOf = "Pequeño"
-        elif (sumaTotal < 20):
-            self.typeOf = "Mediano"
-        else:
-            self.typeOf = "Grande"
+    def _compute_typeOf(self):
+        for record in self:
+            total_area = sum(record.plot_id.mapped('area_ha'))
+
+            if total_area < 5:
+                record.typeOf = 'Pequeño'
+            elif total_area < 20:
+                record.typeOf = 'Mediano'
+            else:
+                record.typeOf = 'Grande'

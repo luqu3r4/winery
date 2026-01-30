@@ -1,7 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import grape_variety
-from . import winegrower
-from . import plot
-from . import grape_weighing_line
-from . import grape_weighing
+from . import plot, winegrower, grape_weighing, grape_weighing_line, grape_variety
