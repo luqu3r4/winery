@@ -15,7 +15,7 @@ class GrapeWeighingLine(models.Model):
     plot_id = fields.Many2one('winery.plot', string="Parcela")
 
     table_wine = fields.Boolean(string="¿Vino de mesa?")
-    grape_variety_id = fields.Many2one('winery.grape.variety', string="Variedad de Uva")
+    grape_variety_id = fields.Many2one('winery.grape_variety', string="Variedad de Uva")
     alcohol_degree = fields.Float(string="Graduación", digits=(5,2))
 
     gross_weight = fields.Float(string="Peso Bruto", digits=(10,2))
