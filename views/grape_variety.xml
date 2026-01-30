@@ -3,42 +3,42 @@
 
         <!-- Vista Tree -->
         <record id="winery_grape_variety_tree" model="ir.ui.view">
-            <field name="name">winery.grape.variety.tree</field>
-            <field name="model">winery.grape.variety</field>
+            <field name="name">winery.grape_variety.tree</field>
+            <field name="model">winery.grape_variety</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="color"/>
-                    <field name="origin_region_id"/>
-                    <field name="is_seedless"/>
-                    <field name="acidity_level"/>
+                    <field name="name" />
+                    <field name="color" />
+                    <field name="origin_region_id" />
+                    <field name="is_seedless" />
+                    <field name="acidity_level" />
                 </tree>
             </field>
         </record>
 
         <!-- Vista Form -->
         <record id="winery_grape_variety_form" model="ir.ui.view">
-            <field name="name">winery.grape.variety.form</field>
-            <field name="model">winery.grape.variety</field>
+            <field name="name">winery.grape_variety.form</field>
+            <field name="model">winery.grape_variety</field>
             <field name="arch" type="xml">
                 <form>
                     <sheet>
 
                         <group>
                             <group>
-                                <field name="name"/>
-                                <field name="color"/>
-                                <field name="origin_region_id"/>
+                                <field name="name" />
+                                <field name="color" />
+                                <field name="origin_region_id" />
                             </group>
 
                             <group>
-                                <field name="is_seedless"/>
-                                <field name="acidity_level"/>
+                                <field name="is_seedless" />
+                                <field name="acidity_level" />
                             </group>
                         </group>
 
                         <group>
-                            <field name="notes"/>
+                            <field name="notes" />
                         </group>
 
                     </sheet>
@@ -49,7 +49,7 @@
         <!-- Acción -->
         <record id="winery_grape_variety_action" model="ir.actions.act_window">
             <field name="name">Variedades de Uva</field>
-            <field name="res_model">winery.grape.variety</field>
+            <field name="res_model">winery.grape_variety</field>
             <field name="view_mode">tree,form</field>
         </record>
 

@@ -7,7 +7,7 @@ class plot(models.Model):
     _description = 'Parcelas de la bodega'
 
     # Campos básicos
-    name = fields.Char(string='Nombre', required=True)
+    name = fields.Char(string='Nombre', compute='_compute_name', store=True)
     plot_number = fields.Char(string='Número de Parcela')
     cadastral_ref = fields.Char(string='Referencia Catastral')
     
@@ -23,7 +23,7 @@ class plot(models.Model):
     area_ha = fields.Float(string='Área (Ha)', digits=(10, 2))
     
     # Relaciones específicas del negocio (Ajusta los modelos 'comodel_name' según tu código real)
-    grape_variety_id = fields.Many2one('winery.grape.variety', string='Variedad de Uva')
+    grape_variety_id = fields.Many2one('winery.grape_variety', string='Variedad de Uva')
     winegrower_id = fields.Many2one('winery.winegrower', string='Viticultor')
     
     # Otros detalles
@@ -57,7 +57,7 @@ class plot(models.Model):
                 f"Nº {rec.plot_number}" if rec.plot_number else None,
                 rec.state_id.name if rec.state_id else None,
                 rec.aggregation,
-                rec.grape_variety_id,
+                rec.grape_variety_id.name,
             ]
             rec.name = ' - '.join(filter(None, parts))
 
