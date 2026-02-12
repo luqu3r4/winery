@@ -1,40 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
     <record id="winery_grape_weighing_line_form" model="ir.ui.view">
-      <field name="name">winery.grape.weighing.line.form</field>
-      <field name="model">winery.grape.weighing.line</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <group>
-              <field name="name"/>
-              <field name="datetime"/>
-              <field name="winegrower_id"/>
-              <field name="winegrower_code" readonly="1"/>
-            </group>
-
-            <group>
-              <field name="plot_id"/>
-            </group>
-
-            <group>
-              <field name="table_wine"/>
-              <field name="grape_variety_id"/>
-              <field name="alcohol_degree"/>
-            </group>
-
-            <group>
-              <field name="gross_weight"/>
-              <field name="tare_weight"/>
-              <field name="net_weight" readonly="1"/>
-            </group>
-
-            <group>
-              <field name="notes"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
+        <field name="name">winery.grape.weighing.line.form</field>
+        <field name="model">winery.grape.weighing.line</field>
+        <field name="arch" type="xml">
+            <form string="Linea de Pesada">
+                <sheet>
+                    <group>
+                        <group string="Origen">
+                            <field name="datetime"/>
+                            <field name="winegrower_id"/>
+                            <field name="plot_id"/>
+                        </group>
+                        <group string="Detalles">
+                            <field name="grape_variety_id"/>
+                            <field name="table_wine"/>
+                            <field name="alcohol_degree"/>
+                        </group>
+                    </group>
+                    <group string="Pesos">
+                        <field name="gross_weight"/>
+                        <field name="tare_weight"/>
+                        <field name="net_weight"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
     </record>
-  </data>
+
+    <record id="winery_grape_weighing_line_tree" model="ir.ui.view">
+        <field name="name">winery.grape.weighing.line.tree</field>
+        <field name="model">winery.grape.weighing.line</field>
+        <field name="arch" type="xml">
+            <tree string="Pesadas por Parcela">
+                <field name="datetime"/>
+                <field name="winegrower_id"/>
+                <field name="plot_id"/>
+                <field name="net_weight" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="winery_grape_weighing_line_action" model="ir.actions.act_window">
+        <field name="name">Pesadas por Parcela</field>
+        <field name="res_model">winery.grape.weighing.line</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

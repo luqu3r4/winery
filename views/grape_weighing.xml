@@ -1,57 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
     <record id="winery_grape_weighing_form" model="ir.ui.view">
-      <field name="name">winery.grape.weighing.form</field>
-      <field name="model">winery.grape.weighing</field>
-      <field name="arch" type="xml">
-        <form>
-          <sheet>
-            <!-- Campos principales -->
-            <group>
-              <field name="name"/>
-              <field name="datetime"/>
-              <field name="alcohol_degree"/>
-              <field name="gross_weight"/>
-              <field name="tare_weight"/>
-              <field name="net_weight" readonly="1"/>
-            </group>
-
-            <!-- Título de sección -->
-            <div class="o_form_label" style="margin-top:10px; font-weight:bold; font-size:14px;">
-              Pesadas por Parcela
-            </div>
-
-            <!-- Líneas de pesada -->
-            <field name="line_ids"
-                   context="{}"
-                   mode="tree,form"
-                   views="[(ref('winery_grape_weighing_line_form'), 'form'), (False, 'tree')]"/>
-          </sheet>
-        </form>
-      </field>
+        <field name="name">winery.grape.weighing.form</field>
+        <field name="model">winery.grape.weighing</field>
+        <field name="arch" type="xml">
+            <form string="Pesada">
+                <header>
+                    <button name="action_confirm" type="object" string="Confirmar" class="oe_highlight"/>
+                    <button name="action_cancel" type="object" string="Cancelar"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Referencia"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="winegrower_id"/>
+                            <field name="winegrower_code"/>
+                            <field name="entry_datetime"/>
+                        </group>
+                        <group>
+                            <field name="gross_weight"/>
+                            <field name="tare_weight"/>
+                            <field name="net_weight"/>
+                            <field name="alcohol_degree"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Líneas">
+                            <field name="weighing_line_ids">
+                                <tree editable="bottom">
+                                    <field name="plot_id"/>
+                                    <field name="grape_variety_id"/>
+                                    <field name="table_wine"/>
+                                    <field name="alcohol_degree"/>
+                                    <field name="gross_weight"/>
+                                    <field name="tare_weight"/>
+                                    <field name="net_weight"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Notas" name="notes">
+                            <field name="description" placeholder="Añade aquí observaciones sobre la pesada..." nolabel="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
     </record>
 
-    <!-- Vista Tree -->
     <record id="winery_grape_weighing_tree" model="ir.ui.view">
-      <field name="name">winery.grape.weighing.tree</field>
-      <field name="model">winery.grape.weighing</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="datetime"/>
-          <field name="alcohol_degree"/>
-          <field name="gross_weight"/>
-          <field name="tare_weight"/>
-          <field name="net_weight"/>
-        </tree>
-      </field>
+        <field name="name">winery.grape_weighing_tree</field>
+        <field name="model">winery.grape.weighing</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="winegrower_id"/>
+                <field name="net_weight"/>
+                <field name="state"/>
+            </tree>
+        </field>
     </record>
 
-    <!-- Acción -->
     <record id="winery_grape_weighing_action" model="ir.actions.act_window">
-      <field name="name">Pesadas de Uva</field>
-      <field name="res_model">winery.grape.weighing</field>
-      <field name="view_mode">tree,form</field>
+        <field name="name">Pesadas de Uva</field>
+        <field name="res_model">winery.grape.weighing</field>
+        <field name="view_mode">tree,form</field>
     </record>
-  </data>
 </odoo>
