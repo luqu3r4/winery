@@ -113,7 +113,7 @@
     <record model="ir.actions.act_window" id="deposit_action_window">
       <field name="name">Depósitos</field>
       <field name="res_model">winery.deposit</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">kanban,form</field>
       <field name="help" type="html">
           <p class="oe_view_nocontent_create">
               Depósitos
