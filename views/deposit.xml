@@ -60,7 +60,8 @@
                             record.state.raw_value == 'inactive' ? 'oe_kanban_color_10' :
                             record.state.raw_value == 'in_maintenance' ? 'oe_kanban_color_3' :
                             'oe_kanban_color_5'}">
-                            
+
+
                             <div class="o_kanban_record_top">
                                 <div class="o_kanban_record_headings">
                                     <strong class="o_kanban_record_title">
