@@ -51,6 +51,14 @@
             <field name="name">Variedades de Uva</field>
             <field name="res_model">winery.grape_variety</field>
             <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Gestión de los tipos de uva
+            </p>
+            <p>
+                Aquí podrás gestionar todos los tipos de uva
+            </p>
+        </field>
         </record>
 
     </data>

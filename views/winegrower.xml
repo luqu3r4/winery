@@ -66,10 +66,10 @@
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
-                Crea el primer viticultor
+                Gestión de los viticultores de la bodega
             </p>
             <p>
-                Aquí podrás gestionar todos los proveedores de uva de la bodega.
+                Aquí podrás gestionar todos los viticultores de la bodega
             </p>
         </field>
     </record>
