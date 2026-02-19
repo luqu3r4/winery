@@ -35,7 +35,6 @@ class Winegrower(models.Model):
     def _compute_typeOf(self):
         for record in self:
             total_area = sum(record.plot_id.mapped('area_ha'))
-
             if total_area < 5:
                 record.typeOf = 'Pequeño'
             elif total_area < 20:
