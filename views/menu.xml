@@ -31,5 +31,18 @@
                   parent="menu_winery_root"
                   action="winery_grape_variety_action"
                   sequence="3"/>
+
+        <!-- Deposito -->
+        <menuitem id="menu_winery_deposit"
+                  name="Depositos"
+                  parent="menu_winery_root"
+                  action="deposit_action_window"
+                  sequence="4"/>
+
+        <menuitem id="menu_winery_deposit_type"
+                  name="Tipos de Deposito"
+                  parent="menu_winery_root"
+                  action="deposit_type_action_window"
+                  sequence="5"/>
     </data>
 </odoo>

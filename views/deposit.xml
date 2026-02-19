@@ -1,0 +1,127 @@
+<odoo>
+      <record id="winery_deposit_form" model="ir.ui.view">
+        <field name="name">winery.deposit.form</field>
+        <field name="model">winery.deposit</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group name="group_top">
+                        <group name="group_left" string="Grupo Izquierda">
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="depositType_id"/>
+                            <field name="sizeCapacity"/>
+                            <field name="tolerance"/>
+                            <field name="maxCapacity" readonly="1"/>
+                        </group>
+                        <group name="group_right">
+                            <field name="state"/>
+                            <field name="currentLitres"/>
+                            <field name="percentageLitres" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+      </record>  
+
+     <record id="winery_deposit_tree" model="ir.ui.view">
+        <field name="name">winery.deposit.tree</field>
+        <field name="model">winery.deposit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="depositType_id"/>
+                <field name="state"/>
+                <field name="currentLitres"/>
+                <field name="percentageLitres"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="winery_deposit_kanban" model="ir.ui.view">
+        <field name="name">winery.deposit.kanban</field>
+        <field name="model">winery.deposit</field>
+        <field name="arch" type="xml">
+            <kanban quick_create="false" group_create="0" group_edit="0">
+              <field name="id" field_id="id_0"/>
+              <field name="name" field_id="name_0"/>
+              <field name="depositType_id" options="{'no_create': True, 'no_create_edit': True, 'no_quick_create': True, 'no_open': False}" on_change="1" field_id="depositType_id_0"/>
+              <field name="sizeCapacity" on_change="1" field_id="sizeCapacity_0"/>
+              <field name="currentLitres" on_change="1" field_id="currentLitres_0"/>
+              <field name="percentageLitres" field_id="percentageLitres_0"/>
+              <field name="tolerance" on_change="1" field_id="tolerance_0"/>
+              <field name="maxCapacity" field_id="maxCapacity_0"/>
+              <field name="state" field_id="state_0"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click #{ 
+                            record.state.raw_value == 'inactive' ? 'oe_kanban_color_10' :
+                            record.state.raw_value == 'in_maintenance' ? 'oe_kanban_color_3' :
+                            'oe_kanban_color_5'}">
+                            
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title">
+                                        <field name="name" field_id="name_1"/>
+                                    </strong>
+                                </div>
+                                <div class="o_kanban_record_top_right">
+                                    <span class="badge text-bg-primary">
+                                        <field name="depositType_id" on_change="1" field_id="depositType_id_1"/>
+                                    </span>
+                                </div>
+                            </div>                
+                            <div class="o_kanban_record_body">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span class="text-muted">Capacidad:</span>
+                                        <br/>
+                                        <strong><field name="sizeCapacity" on_change="1" field_id="sizeCapacity_1"/> L</strong>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="text-muted">Actual:</span>
+                                        <br/>
+                                        <strong><field name="currentLitres" on_change="1" field_id="currentLitres_1"/> L</strong>
+                                    </div>
+                                </div>
+
+                                <div class="mt-2">
+                                    <field name="percentageLitres" widget="progressbar" field_id="percentageLitres_1"/>
+                                </div>
+
+                                <div class="mt-2">
+                                    <t t-if="record.state.raw_value == 'in_maintenance'">
+                                        <span class="badge rounded-pill text-bg-warning text-dark">EN MANTENIMIENTO</span>
+                                    </t>
+                                    <t t-elif="record.state.raw_value == 'inactive'">
+                                        <span class="badge rounded-pill text-bg-secondary">INACTIVO</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-success">ACTIVO</span>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="deposit_action_window">
+      <field name="name">Depósitos</field>
+      <field name="res_model">winery.deposit</field>
+      <field name="view_mode">tree,form,kanban</field>
+      <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+              Depósitos
+          </p>
+          <p>
+              Click 'Crear' para añadir nuevos elementos.
+          </p>
+      </field>
+    </record>
+
+</odoo>

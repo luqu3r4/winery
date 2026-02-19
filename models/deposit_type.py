@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 class DepositType(models.Model):
-    _name = 'deposit.type'
+    _name = 'winery.deposit_type'
     _description = 'Tipo de Deposito'
 
     name = fields.Char(string='Name', required = True)
