@@ -13,7 +13,7 @@ class Deposit(models.Model):
     sizeCapacity = fields.Integer(string="Capacidad", required=True)
     tolerance = fields.Integer(string="Tolerancia", required=True)
     
-    maxCapacity = fields.Float(string="Capacidad máxima calculada")
+    maxCapacity = fields.Float(compute = "_onchange_maxCapacity", store = True, string="Capacidad máxima calculada")
 
     state = fields.Selection([
             ('active', 'Activo'),
@@ -29,7 +29,7 @@ class Deposit(models.Model):
         ('code_unique', 'UNIQUE(code)', 'El código del depósito debe ser único.')
     ]
 
-    @api.onchange('sizeCapacity', 'tolerance')
+    @api.depends('sizeCapacity', 'tolerance')
     def _onchange_maxCapacity(self):
         for record in self:
             record.maxCapacity = record.sizeCapacity + (record.sizeCapacity * record.tolerance / 100.0)
