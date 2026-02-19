@@ -2,47 +2,47 @@
     <data>
         <!-- Menú raíz -->
         <menuitem id="menu_winery_root"
-                  name="Winery"
-                  sequence="20"/>
+            name="Winery"
+            sequence="20" />
 
         <!-- Opción Viticultores -->
         <menuitem id="menu_winery_winegrower"
-                  name="Viticultores"
-                  parent="menu_winery_root"
-                  action="action_winery_winegrower"
-                  sequence="1"/>
+            name="Viticultores"
+            parent="menu_winery_root"
+            action="action_winery_winegrower"
+            sequence="1" />
 
         <!-- Submenús dentro de Operaciones -->
         <menuitem id="menu_winery_plots"
-                  name="Parcelas"
-                  parent="menu_winery_root"
-                  sequence="1"
-                  action="plot_action_window"/>
+            name="Parcelas"
+            parent="menu_winery_root"
+            sequence="1"
+            action="plot_action_window" />
 
         <menuitem id="menu_winery_grape_weighing"
-                  name="Pesadas de Uva"
-                  parent="menu_winery_root"
-                  sequence="2"
-                  action="winery_grape_weighing_action"/>
+            name="Pesadas de Uva"
+            parent="menu_winery_root"
+            sequence="2"
+            action="winery_grape_weighing_action" />
 
         <!-- Tipos de Uva -->
         <menuitem id="menu_winery_grape_variety"
-                  name="Tipos de Uva"
-                  parent="menu_winery_root"
-                  action="winery_grape_variety_action"
-                  sequence="3"/>
+            name="Tipos de Uva"
+            parent="menu_winery_root"
+            action="winery_grape_variety_action"
+            sequence="3" />
 
         <!-- Deposito -->
         <menuitem id="menu_winery_deposit"
-                  name="Depositos"
-                  parent="menu_winery_root"
-                  action="deposit_action_window"
-                  sequence="4"/>
+            name="Depositos"
+            parent="menu_winery_root"
+            action="deposit_action_window"
+            sequence="4" />
 
         <menuitem id="menu_winery_deposit_type"
-                  name="Tipos de Deposito"
-                  parent="menu_winery_root"
-                  action="deposit_type_action_window"
-                  sequence="5"/>
+            name="Tipos de Deposito"
+            parent="menu_winery_root"
+            action="deposit_type_action_window"
+            sequence="5" />
     </data>
 </odoo>

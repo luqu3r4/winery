@@ -29,6 +29,7 @@
         'views/plot.xml',
         'views/grape_weighing_line.xml',
         'views/grape_weighing.xml',
+        'views/deposit_type.xml',
         'views/deposit.xml',
         'views/deposit_type.xml',
         'views/menu.xml',
