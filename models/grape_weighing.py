@@ -5,6 +5,8 @@ class GrapeWeighing(models.Model):
     _name = 'winery.grape.weighing'
     _description = 'Pesadas de Uva'
 
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
     name = fields.Char(string="Referencia", required=True)
     state = fields.Selection([('draft', 'Borrador'), ('confirmed', 'Confirmada')], default='draft')
     entry_datetime = fields.Datetime(string="Fecha", default=fields.Datetime.now)
