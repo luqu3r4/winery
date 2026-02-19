@@ -1,48 +1,70 @@
 <odoo>
     <data>
+
         <!-- Menú raíz -->
         <menuitem id="menu_winery_root"
-            name="Winery"
-            sequence="20" />
+                  name="Bodega"
+                  sequence="20"/>
 
-        <!-- Opción Viticultores -->
+        <!-- Viticultores -->
+        <menuitem id="menu_winegrower_root"
+                  name="Viticultores"
+                  parent="menu_winery_root"
+                  sequence="2"/>
+
         <menuitem id="menu_winery_winegrower"
-            name="Viticultores"
-            parent="menu_winery_root"
-            action="action_winery_winegrower"
-            sequence="1" />
+                  name="Viticultores"
+                  parent="menu_winegrower_root"
+                  action="action_winery_winegrower"
+                  sequence="1"/>
 
-        <!-- Submenús dentro de Operaciones -->
         <menuitem id="menu_winery_plots"
-            name="Parcelas"
-            parent="menu_winery_root"
-            sequence="1"
-            action="plot_action_window" />
+                  name="Parcelas"
+                  parent="menu_winegrower_root"
+                  action="plot_action_window"
+                  sequence="2"/>
+
+        <!-- Configuración -->
+        <menuitem id="menu_config_root"
+                  name="Configuración"
+                  parent="menu_winery_root"
+                  sequence="4"/>
+
+        <menuitem id="menu_winery_grape_variety"
+                  name="Tipos de Uva"
+                  parent="menu_config_root"
+                  action="winery_grape_variety_action"
+                  sequence="1"/>
+
+        <!-- Pesadas -->
+        <menuitem id="menu_pesadas_root"
+                  name="Pesadas"
+                  parent="menu_winery_root"
+                  sequence="1"/>
 
         <menuitem id="menu_winery_grape_weighing"
-            name="Pesadas de Uva"
-            parent="menu_winery_root"
-            sequence="2"
-            action="winery_grape_weighing_action" />
+                  name="Pesadas de Uva"
+                  parent="menu_pesadas_root"
+                  action="winery_grape_weighing_action"
+                  sequence="2"/>
 
-        <!-- Tipos de Uva -->
-        <menuitem id="menu_winery_grape_variety"
-            name="Tipos de Uva"
-            parent="menu_winery_root"
-            action="winery_grape_variety_action"
-            sequence="3" />
+        <!-- Almacenaje -->
+        <menuitem id="menu_almacen_root"
+                  name="Almacenaje"
+                  parent="menu_winery_root"
+                  sequence="3"/>
 
-        <!-- Deposito -->
         <menuitem id="menu_winery_deposit"
-            name="Depositos"
-            parent="menu_winery_root"
-            action="deposit_action_window"
-            sequence="4" />
+                  name="Depósitos"
+                  parent="menu_almacen_root"
+                  action="deposit_action_window"
+                  sequence="4"/>
 
         <menuitem id="menu_winery_deposit_type"
-            name="Tipos de Deposito"
-            parent="menu_winery_root"
-            action="deposit_type_action_window"
-            sequence="5" />
+                  name="Tipos de Depósito"
+                  parent="menu_almacen_root"
+                  action="deposit_type_action_window"
+                  sequence="5"/>
+
     </data>
 </odoo>
