@@ -23,7 +23,7 @@ class Deposit(models.Model):
 
     currentLitres = fields.Float(string="Litros actuales", required=True)
     
-    percentageLitres = fields.Float(string="Porcentaje de llenado", required=True)
+    percentageLitres = fields.Float(compute="_depends_percentageLitres", store=True, string="Porcentaje de llenado")
 
     _sql_constraints = [
         ('code_unique', 'UNIQUE(code)', 'El código del depósito debe ser único.')
@@ -34,8 +34,8 @@ class Deposit(models.Model):
         for record in self:
             record.maxCapacity = record.sizeCapacity + (record.sizeCapacity * record.tolerance / 100.0)
 
-    @api.onchange('currentLitres', 'sizeCapacity')
-    def _onchange_percentageLitres(self):
+    @api.depends('currentLitres', 'sizeCapacity')
+    def _depends_percentageLitres(self):
         for record in self:
             if record.sizeCapacity > 0:
                 record.percentageLitres = (record.currentLitres * 100.0) / record.sizeCapacity
