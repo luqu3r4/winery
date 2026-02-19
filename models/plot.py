@@ -7,7 +7,7 @@ class plot(models.Model):
     _description = 'Parcelas de la bodega'
 
     # Campos básicos
-    name = fields.Char(string='Nombre')
+    name = fields.Char(string='Nombre', compute='_compute_name', store=True)
     plot_number = fields.Char(string='Número de Parcela')
     cadastral_ref = fields.Char(string='Referencia Catastral')
     
